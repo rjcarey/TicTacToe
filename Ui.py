@@ -18,7 +18,6 @@ class Terminal(Ui):
         self.__game = Game()
 
     def run(self):
-        print("running terminal")
         while not self.__game.winner:
             print(self.__game)
             row = int(input("Enter row: "))
