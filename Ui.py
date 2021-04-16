@@ -11,11 +11,11 @@ class Gui(Ui):
         pass
 
     def run(self):
-        pass
+        print("running gui")
 
 class Terminal(Ui):
     def __init__(self):
         pass
 
     def run(self):
-        pass
+        print("running terminal")
