@@ -46,6 +46,7 @@ class Game:
                 return p
             if all(self._board[i][Game._DIM - 1 - i] is p for i in range(Game._DIM)):
                 return p
+        #check for draw
         numempty = 0
         for r,c in product(range(3), range(3)):
             if self._board[r][c] == Game._EMPTY:
