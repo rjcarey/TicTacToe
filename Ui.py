@@ -1,6 +1,6 @@
 from Game import Game, GameError
 from abc import ABC, abstractmethod
-from tkinter import Button, Tk, Frame, X, Toplevel, StringVar, Text, Scrollbar, Y, LEFT, RIGHT
+from tkinter import Button, Tk, Frame, X, Toplevel, StringVar, Text, Scrollbar, Y, LEFT, RIGHT, END
 from itertools import product
 
 class Ui(ABC):
@@ -67,7 +67,10 @@ class Gui(Ui):
             self.__buttons[row][col] = b
     
     def __play_and_refresh(self, row, col):
-        self.__game.play(row+1, col+1)
+        try:
+            self.__game.play(row+1, col+1)
+        except GameError as e:
+            self.__console.insert(END, f"{e}\n")
         
         for row, col in product(range(3), range(3)):
             text = self.__game.at(row+1, col+1)
