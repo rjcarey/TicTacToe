@@ -1,6 +1,6 @@
 from Game import Game, GameError
 from abc import ABC, abstractmethod
-from tkinter import Button, Tk, Frame, X, Toplevel, StringVar
+from tkinter import Button, Tk, Frame, X, Toplevel, StringVar, Text, Scrollbar, Y, LEFT, RIGHT
 from itertools import product
 
 class Ui(ABC):
@@ -31,7 +31,16 @@ class Gui(Ui):
             text= "Quit",
             command= self._quit_callback).pack(fill=X)
         
+        console = Text(frame,height=4,width=50)
+        scroll = Scrollbar(frame)
+        scroll.pack(side=RIGHT,fill=Y)
+        console.pack(side=LEFT,fill=Y)
+        
+        scroll.config(command=console.yview)
+        console.config(yscrollcommand=scroll.set)
+        
         self.__root = root
+        self.__console = console
         
     def _help_callback(self):
         pass
