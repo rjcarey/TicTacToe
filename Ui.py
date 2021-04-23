@@ -76,6 +76,13 @@ class Gui(Ui):
             text = self.__game.at(row+1, col+1)
             self.__buttons[row][col].set(text)
         
+        w = self.__game.winner
+        if w is not None:
+            if w is Game.DRAW:
+                self.__console.insert(END, "The game was drawn\n")
+            else:
+                self.__console.insert(END, f"The winner was {w}\n")
+        
     def _quit_callback(self):
         self.__root.quit()
     
