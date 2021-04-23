@@ -1,6 +1,6 @@
 from Game import Game, GameError
 from abc import ABC, abstractmethod
-from tkinter import Button, Tk, Frame, X, Toplevel, StringVar, Text, Scrollbar, Y, LEFT, RIGHT, END
+from tkinter import Button, Tk, Frame, X, Toplevel, StringVar, Text, Scrollbar, Y, LEFT, RIGHT, END, Grid, N, S, W, E
 from itertools import product
 
 class Ui(ABC):
@@ -50,9 +50,14 @@ class Gui(Ui):
         game_win = Toplevel(self.__root)
         game_win.title("Game")
         frame = Frame(game_win)
-        frame.grid(row=0, column=0)
         
-        Button(game_win, text="Dismis", command=game_win.destroy).grid(row=1, column=0)
+        #Resizing
+        Grid.columnconfigure(game_win,0,weight=1)
+        Grid.rowconfigure(game_win,0,weight=1)
+        
+        frame.grid(row=0, column=0, sticky=N+S+W+E)
+        
+        Button(game_win, text="Dismis", command=game_win.destroy).grid(row=1, column=0, sticky=N+S+W+E)
         
         # only allows for one game at a time
         self.__buttons = [[None]*3 for _ in range(3)]
@@ -63,8 +68,14 @@ class Gui(Ui):
             
             cmd = lambda r=row, c=col: self.__play_and_refresh(r,c)
             
-            Button(frame,textvariable=b,command=cmd).grid(row=row, column=col)
+            Button(frame,textvariable=b,command=cmd).grid(row=row, column=col, sticky=N+S+W+E)
             self.__buttons[row][col] = b
+        
+        #Resizing
+        for i in range(3):
+            Grid.columnconfigure(frame,i,weight=1)
+            Grid.rowconfigure(frame,i,weight=1)
+            
     
     def __play_and_refresh(self, row, col):
         try:
