@@ -50,6 +50,8 @@ class Gui(Ui):
         
         self.__HelpInProgress = True
         help_win = Toplevel(self.__root)
+        #help_text = "instructions"
+        #Message(help_win, text=help_text).pack(fill=X)
         help_win.title("Help")
         frame = Frame(help_win)
         self.__help_win = help_win
