@@ -42,9 +42,24 @@ class Gui(Ui):
         self.__root = root
         self.__console = console
         self.__GameInProgress = False
+        self.__HelpInProgress = False
         
     def _help_callback(self):
-        pass
+        if self.__HelpInProgress:
+            return
+        
+        self.__HelpInProgress = True
+        help_win = Toplevel(self.__root)
+        help_win.title("Help")
+        frame = Frame(help_win)
+        self.__help_win = help_win
+        frame.grid(row=0, column=0, sticky=N+S+W+E)
+        
+        Button(help_win, text="Dismis", command=self._dismis_help).grid(row=1, column=0, sticky=N+S+W+E)
+    
+    def _dismis_help(self):
+        self.__HelpInProgress = False
+        self.__help_win.destroy()
     
     def _dismis_game(self):
         self.__GameInProgress = False
