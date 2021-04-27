@@ -41,16 +41,26 @@ class Gui(Ui):
         
         self.__root = root
         self.__console = console
+        self.__GameInProgress = False
         
     def _help_callback(self):
         pass
     
+    def _dismis_game(self):
+        self.__GameInProgress = False
+        self.__game_win.destroy()
+    
     def _play_callback(self):
+        if self.__GameInProgress:
+            return
+        
+        self.__GameInProgress = True
         self.__Finished = False
         self.__game = Game()
         game_win = Toplevel(self.__root)
         game_win.title("Game")
         frame = Frame(game_win)
+        self.__game_win = game_win
         
         #Resizing
         Grid.columnconfigure(game_win,0,weight=1)
@@ -58,7 +68,7 @@ class Gui(Ui):
         
         frame.grid(row=0, column=0, sticky=N+S+W+E)
         
-        Button(game_win, text="Dismis", command=game_win.destroy).grid(row=1, column=0, sticky=N+S+W+E)
+        Button(game_win, text="Dismis", command=self._dismis_game).grid(row=1, column=0, sticky=N+S+W+E)
         
         # only allows for one game at a time
         self.__buttons = [[None]*3 for _ in range(3)]
