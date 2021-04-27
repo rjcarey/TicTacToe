@@ -55,6 +55,10 @@ class Gui(Ui):
         self.__help_win = help_win
         frame.grid(row=0, column=0, sticky=N+S+W+E)
         
+        console = Text(frame,height=4,width=50)
+        console.grid(row=0,column=0)
+        console.insert(END, "Take turns to place your player markers in the grid. Place 3 markers in a row to win. You cannot place a marker ontop of another marker!")
+        
         Button(help_win, text="Dismis", command=self._dismis_help).grid(row=1, column=0, sticky=N+S+W+E)
     
     def _dismis_help(self):
