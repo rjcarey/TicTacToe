@@ -46,6 +46,7 @@ class Gui(Ui):
         pass
     
     def _play_callback(self):
+        self.__Finished = False
         self.__game = Game()
         game_win = Toplevel(self.__root)
         game_win.title("Game")
@@ -78,6 +79,8 @@ class Gui(Ui):
             
     
     def __play_and_refresh(self, row, col):
+        if self.__Finished:
+            return
         try:
             self.__game.play(row+1, col+1)
         except GameError as e:
@@ -89,6 +92,7 @@ class Gui(Ui):
         
         w = self.__game.winner
         if w is not None:
+            self.__Finished = True
             if w is Game.DRAW:
                 self.__console.insert(END, "The game was drawn\n")
             else:
